@@ -1,0 +1,8 @@
+{
+	"Changelist" : 3172292,
+	"BuildId" : "afaac3da-c76f-4c5c-ba55-34a6bf8c963f",
+	"Modules" : 
+	{
+		"PluginZeroMQ" : "UE4Editor-PluginZeroMQ.dll"
+	}
+}

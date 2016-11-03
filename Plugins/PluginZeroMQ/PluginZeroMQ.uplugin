@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "PluginZeroMQ",
+	"Description": "",
+	"Category": "Network",
+	"CreatedBy": "tsky",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"EnabledByDefault": false,
+	"CanContainContent": false,
+	"IsBetaVersion": true,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "PluginZeroMQ",
+			"Type": "Developer",
+			"LoadingPhase": "Default"
+		}
+	]
+}
