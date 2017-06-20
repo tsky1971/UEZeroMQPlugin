@@ -16,6 +16,7 @@ public class libzmq : ModuleRules
 		{
 			// Add the import library
 			PublicLibraryPaths.Add(Path.Combine(ModuleDirectory, "bin", "x64", "Release", "v140", "dynamic"));
+			PublicLibraryPaths.Add(Path.Combine(ModuleDirectory, "bin", "x64", "Release", "v140", "static"));
 			PublicAdditionalLibraries.Add("libzmq.lib");
 
 			// Delay-load the DLL, so we can load it from the right place first

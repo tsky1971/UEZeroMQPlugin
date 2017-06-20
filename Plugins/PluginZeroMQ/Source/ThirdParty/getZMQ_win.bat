@@ -91,29 +91,13 @@ echo "czmq"
 if not exist czmq (
 	git clone git://github.com/zeromq/czmq.git
 	pushd czmq
-	mkdir build32 & pushd build32
-	cmake -G "Visual Studio 14 2015" ..
-	popd
-	mkdir build64 & pushd build64
-	cmake -G "Visual Studio 14 2015 Win64" ..
-	popd
-	cmake --build build32 --config Release
-	xcopy /Y build32\bin\Release\*.dll ..\..\..\Binaries\Win32\
-	xcopy /Y build32\lib\Release\* ..\..\..\Binaries\Win32\
-	cmake --build build64 --config Release
-	xcopy /Y build64\bin\Release\*.dll ..\..\..\Binaries\Win64\
-	xcopy /Y build64\lib\Release\* ..\..\..\Binaries\Win64\
+	echo "you have to build it manually"
 	popd
 ) else (
 	echo "czmq exists already"	
 	pushd czmq
 	git pull
-	pushd build32
-	cmake -G "Visual Studio 14 2015" ..
-	popd
-	pushd build64
-	cmake -G "Visual Studio 14 2015 Win64" ..
-	popd
+	echo "you have to build it manually"
 	popd
 )
 
