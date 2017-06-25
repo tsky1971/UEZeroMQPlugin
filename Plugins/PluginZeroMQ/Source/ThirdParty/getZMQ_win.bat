@@ -1,5 +1,6 @@
 echo off
-
+echo "https://github.com/zeromq/czmq#building-on-windows"
+pause
 echo "Visual Studio search"
 rem call "C:\Programme\Microsoft Visual Studio 12.0\VC\vcvarsall.bat"
 rem call "C:\Program Files\Microsoft Visual Studio 12.0\VC\vcvarsall.bat"
@@ -17,8 +18,8 @@ if not exist libsodium (
 	msbuild builds\msvc\vs2015\libsodium.sln /p:Configuration=StaticRelease /p:Platform="x64" /m:4
 	msbuild builds\msvc\vs2015\libsodium.sln /p:Configuration=StaticRelease /p:Platform="win32" /m:4
 	msbuild builds\msvc\vs2015\libsodium.sln /p:Configuration=LtcgRelease /p:Platform="x64" /m:4
-	xcopy /Y bin\x64\Release\v140\static\* ..\..\..\Binaries\Win64\
-	xcopy /Y bin\Win32\Release\v140\static\* ..\..\..\Binaries\Win32\
+	xcopy /Y bin\x64\Release\v140\static\* ..\..\..\Binaries\ThirdParty\libsodium\Win64\
+	xcopy /Y bin\Win32\Release\v140\static\* ..\..\..\Binaries\ThirdParty\libsodium\Win32\
 	rem xcopy /V/S/E/Y src\libsodium\include ..\..\cglabdepends_win\include\
 	popd
 ) else (
@@ -29,11 +30,13 @@ if not exist libsodium (
 	msbuild builds\msvc\vs2015\libsodium.sln /p:Configuration=StaticRelease /p:Platform="x64" /m:4
 	msbuild builds\msvc\vs2015\libsodium.sln /p:Configuration=StaticRelease /p:Platform="win32" /m:4
 	msbuild builds\msvc\vs2015\libsodium.sln /p:Configuration=LtcgRelease /p:Platform="x64" /m:4
-	xcopy /Y bin\x64\Release\v140\static\* ..\..\..\Binaries\Win64\
-	xcopy /Y bin\Win32\Release\v140\static\* ..\..\..\Binaries\Win32\
+	xcopy /Y bin\x64\Release\v140\static\* ..\..\..\Binaries\ThirdParty\libsodium\Win64\
+	xcopy /Y bin\Win32\Release\v140\static\* ..\..\..\Binaries\ThirdParty\libsodium\Win32\
 	rem xcopy /V/S/E/Y src\libsodium\include ..\..\cglabdepends_win\include\
 	popd
 )
+
+pause
 
 echo "libzmq"
 if not exist libzmq (
@@ -47,11 +50,11 @@ if not exist libzmq (
 	cmake -G "Visual Studio 14 2015 Win64" ..
 	popd
 	cmake --build build32 --config Release
-	xcopy /Y build32\bin\Release\*.dll ..\..\..\Binaries\Win32\
-	xcopy /Y build32\lib\Release\* ..\..\..\Binaries\Win32\
+	xcopy /Y build32\bin\Release\*.dll ..\..\..\Binaries\ThirdParty\libzmq\Win32\
+	xcopy /Y build32\lib\Release\* ..\..\..\Binaries\ThirdParty\libzmq\Win32\
 	cmake --build build64 --config Release
-	xcopy /Y build64\bin\Release\*.dll ..\..\..\Binaries\Win64\
-	xcopy /Y build64\lib\Release\* ..\..\..\Binaries\Win64\
+	xcopy /Y build64\bin\Release\*.dll ..\..\..\Binaries\ThirdParty\libzmq\Win64\
+	xcopy /Y build64\lib\Release\* ..\..\..\Binaries\ThirdParty\libzmq\Win64\
 	
 	popd
 ) else (
@@ -65,11 +68,11 @@ if not exist libzmq (
 	cmake -G "Visual Studio 14 2015 Win64" ..
 	popd
 	cmake --build build32 --config Release
-	xcopy /Y build32\bin\Release\*.dll ..\..\..\Binaries\Win32\
-	xcopy /Y build32\lib\Release\* ..\..\..\Binaries\Win32\
+	xcopy /Y build32\bin\Release\*.dll ..\..\..\Binaries\ThirdParty\libzmq\Win32\
+	xcopy /Y build32\lib\Release\* ..\..\..\Binaries\ThirdParty\libzmq\Win32\
 	cmake --build build64 --config Release
-	xcopy /Y build64\bin\Release\*.dll ..\..\..\Binaries\Win64\
-	xcopy /Y build64\lib\Release\* ..\..\..\Binaries\Win64\
+	xcopy /Y build64\bin\Release\*.dll ..\..\..\Binaries\ThirdParty\libzmq\Win64\
+	xcopy /Y build64\lib\Release\* ..\..\..\Binaries\ThirdParty\libzmq\Win64\
 	popd
 )
 
