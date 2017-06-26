@@ -112,11 +112,11 @@ public:
 	UFUNCTION(BluePrintCallable, Category = ZMQ)
 		bool SetSockOpt_IMMEDIATE_ZMQ(const bool value);
 
-	UFUNCTION(BluePrintCallable, Category = ZMQ)
-		bool CreateSocketZMQ(const FString ip, EZMQPatternEnum pattern);
+	//UFUNCTION(BluePrintCallable, Category = ZMQ)
+	//	bool CreateSocketZMQ(const FString ip, EZMQPatternEnum pattern);
 
 	UFUNCTION(BluePrintCallable, Category = ZMQ)
-		bool CreatePUBSocketZMQ(const FString ip, const int port, FString filter);
+		bool CreateSUBSocketZMQ(const FString ip, const int port, FString filter);
 	
 	UFUNCTION(BluePrintCallable, Category = ZMQ)
 		int ReceiveZMQ();

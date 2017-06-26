@@ -121,43 +121,43 @@ bool UZMQComponent::SetSockOpt_IMMEDIATE_ZMQ(const bool value)
 	return result;
 }
 
-bool UZMQComponent::CreateSocketZMQ(const FString ip, EZMQPatternEnum pattern)
-{
-	bool result = true;
-	if (m_ZMQContext != nullptr) {
-		switch (pattern)
-		{
-		case EZMQPatternEnum::UE_ZMQ_SUB:
-			m_ZMQSocket = zmq_socket(m_ZMQContext, ZMQ_SUB);
-			
-			break;
-		default:
-			break;
-		}
+//bool UZMQComponent::CreateSocketZMQ(const FString ip, EZMQPatternEnum pattern)
+//{
+//	bool result = true;
+//	if (m_ZMQContext != nullptr) {
+//		switch (pattern)
+//		{
+//		case EZMQPatternEnum::UE_ZMQ_SUB:
+//			m_ZMQSocket = zmq_socket(m_ZMQContext, ZMQ_SUB);
+//			
+//			break;
+//		default:
+//			break;
+//		}
+//
+//		if (m_ZMQSocket) {
+//			UE_LOG(LogTemp, Warning, TEXT("ZMQ is created"));
+//
+//			int result = zmq_connect(m_ZMQSocket, TCHAR_TO_UTF8(*ip));
+//			if (result) {
+//				zmq_setsockopt(m_ZMQSocket, ZMQ_SUBSCRIBE, "B", 1);
+//				m_IsInitialized = true;
+//				UE_LOG(LogTemp, Warning, TEXT("ZMQ Context is connected"));
+//			}
+//			else {
+//				m_IsInitialized = false;
+//				UE_LOG(LogTemp, Warning, TEXT("ZMQ Context is NOT connected"));
+//			}
+//		}
+//
+//	}
+//	else {
+//		UE_LOG(LogTemp, Warning, TEXT("ZMQ Context is NULL"));
+//	}
+//	return result;
+//}
 
-		if (m_ZMQSocket) {
-			UE_LOG(LogTemp, Warning, TEXT("ZMQ is created"));
-
-			int result = zmq_connect(m_ZMQSocket, TCHAR_TO_UTF8(*ip));
-			if (result) {
-				zmq_setsockopt(m_ZMQSocket, ZMQ_SUBSCRIBE, "B", 1);
-				m_IsInitialized = true;
-				UE_LOG(LogTemp, Warning, TEXT("ZMQ Context is connected"));
-			}
-			else {
-				m_IsInitialized = false;
-				UE_LOG(LogTemp, Warning, TEXT("ZMQ Context is NOT connected"));
-			}
-		}
-
-	}
-	else {
-		UE_LOG(LogTemp, Warning, TEXT("ZMQ Context is NULL"));
-	}
-	return result;
-}
-
-bool UZMQComponent::CreatePUBSocketZMQ(const FString ip, const int port, FString filter)
+bool UZMQComponent::CreateSUBSocketZMQ(const FString ip, const int port, FString filter)
 {
 	bool result = true;
 	if (m_ZMQContext != nullptr) {
@@ -180,7 +180,7 @@ bool UZMQComponent::CreatePUBSocketZMQ(const FString ip, const int port, FString
 		}
 		else {
 			m_IsInitialized = false;
-			UE_LOG(LogTemp, Error, TEXT("ZMQ CreateZMQSocketPUB FAILED"));
+			UE_LOG(LogTemp, Error, TEXT("ZMQ CreateSUBSocketZMQ FAILED"));
 		}
 	}
 	else {

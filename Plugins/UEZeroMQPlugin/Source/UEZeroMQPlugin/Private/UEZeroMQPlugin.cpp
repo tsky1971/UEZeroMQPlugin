@@ -73,7 +73,7 @@ void FUEZeroMQPluginModule::StartupModule()
 	}
 
 	dllName = "libczmq.dll";
-	if (SearchForDllPath(FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/libczmq/x64/Release/v140/dynamic/")), dllName))
+	if (SearchForDllPath(FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/czmq/x64/Release/v140/dynamic/")), dllName))
 	{
 		UE_LOG(LogInit, Log, TEXT("SearchForDllPath libczmq SUCCESSFUL"));
 	}
