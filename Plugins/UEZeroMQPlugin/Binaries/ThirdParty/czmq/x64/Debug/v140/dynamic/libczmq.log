@@ -1,0 +1,52 @@
+﻿  ConfigurationType : DynamicLibrary
+  Configuration     : DebugDLL
+  PlatformToolset   : v140
+  TargetPath        : F:\UE4_CreateProjects\CreateUEZeroMQPlugin\Plugins\UEZeroMQPlugin\Source\ThirdParty\czmq\builds\msvc\vs2015\libczmq\..\..\..\..\bin\x64\Debug\v140\dynamic\libczmq.dll
+  Will copy F:\UE4_CreateProjects\CreateUEZeroMQPlugin\Plugins\UEZeroMQPlugin\Source\ThirdParty\czmq\builds\msvc\vs2015\libczmq\..\..\platform.h -> F:\UE4_CreateProjects\CreateUEZeroMQPlugin\Plugins\UEZeroMQPlugin\Source\ThirdParty\czmq\builds\msvc\vs2015\libczmq\..\..\..\..\include\platform.h
+  Linkage-libzmq: dynamic
+          1 Datei(en) kopiert.
+  zactor.c
+  zargs.c
+  zarmour.c
+  zcert.c
+  zcertstore.c
+  zchunk.c
+  zclock.c
+  zconfig.c
+  zdigest.c
+  zdir.c
+  zdir_patch.c
+  zfile.c
+  zframe.c
+  zhash.c
+  zhashx.c
+  ziflist.c
+  zlist.c
+  zlistx.c
+  zloop.c
+  zmsg.c
+  zpoller.c
+  zproc.c
+  zsock.c
+  zstr.c
+..\..\..\..\src\zproc.c(377): warning C4244: 'argument': conversion from 'SOCKET' to 'int', possible loss of data
+..\..\..\..\src\zproc.c(407): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+..\..\..\..\src\zproc.c(407): warning C4244: 'argument': conversion from 'SOCKET' to 'int', possible loss of data
+  zsys.c
+  ztimerset.c
+  ztrie.c
+  zuuid.c
+  zauth.c
+  zbeacon.c
+  zgossip.c
+  zmonitor.c
+..\..\..\..\src\zbeacon.c(281): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+..\..\..\..\src\zbeacon.c(296): warning C4267: 'argument': conversion from 'size_t' to 'socklen_t', possible loss of data
+  zproxy.c
+  zrex.c
+  zgossip_msg.c
+     Creating library F:\UE4_CreateProjects\CreateUEZeroMQPlugin\Plugins\UEZeroMQPlugin\Source\ThirdParty\czmq\builds\msvc\vs2015\libczmq\..\..\..\..\bin\x64\Debug\v140\dynamic\libczmq.lib and object F:\UE4_CreateProjects\CreateUEZeroMQPlugin\Plugins\UEZeroMQPlugin\Source\ThirdParty\czmq\builds\msvc\vs2015\libczmq\..\..\..\..\bin\x64\Debug\v140\dynamic\libczmq.exp
+  libczmq.vcxproj -> F:\UE4_CreateProjects\CreateUEZeroMQPlugin\Plugins\UEZeroMQPlugin\Source\ThirdParty\czmq\builds\msvc\vs2015\libczmq\..\..\..\..\bin\x64\Debug\v140\dynamic\libczmq.dll
+  libczmq.vcxproj -> F:\UE4_CreateProjects\CreateUEZeroMQPlugin\Plugins\UEZeroMQPlugin\Source\ThirdParty\czmq\builds\msvc\vs2015\libczmq\..\..\..\..\bin\x64\Debug\v140\dynamic\libczmq.pdb (Full PDB)
+  Copying libzmq.dll -> F:\UE4_CreateProjects\CreateUEZeroMQPlugin\Plugins\UEZeroMQPlugin\Source\ThirdParty\czmq\bin\x64\Debug\v140\dynamic\libzmq.dll
+  Copying libzmq.pdb -> F:\UE4_CreateProjects\CreateUEZeroMQPlugin\Plugins\UEZeroMQPlugin\Source\ThirdParty\czmq\bin\x64\Debug\v140\dynamic\libzmq.pdb
