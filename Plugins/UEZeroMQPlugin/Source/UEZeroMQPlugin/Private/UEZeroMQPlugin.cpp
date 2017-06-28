@@ -4,7 +4,7 @@
 #include "Core.h"
 #include "ModuleManager.h"
 #include "IPluginManager.h"
-#include "ZMQLibrary.h"
+//#include "ZMQLibrary.h"
 
 
 #define LOCTEXT_NAMESPACE "FUEZeroMQPluginModule"
@@ -42,24 +42,24 @@ void FUEZeroMQPluginModule::StartupModule()
 
 	// Add on the relative location of the third party dll and load it
 	FString LibraryPath;
-#if PLATFORM_WINDOWS
-	LibraryPath = FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/UEZeroMQPluginLibrary/x64/Release/ZMQLibrary.dll"));
-#elif PLATFORM_MAC
-	LibraryPath = FPaths::Combine(*BaseDir, TEXT("Source/ThirdParty/UEZeroMQPluginLibrary/Mac/Release/libZMQLibrary.dylib"));
-#endif // PLATFORM_WINDOWS
-
-	ZMQLibraryHandle = !LibraryPath.IsEmpty() ? FPlatformProcess::GetDllHandle(*LibraryPath) : nullptr;
-
-	if (ZMQLibraryHandle)
-	{
-		// Call the test function in the third party library that opens a message box
-		//ZMQLibraryFunction();
-	}
-	else
-	{
-		FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("ThirdPartyLibraryError", "Failed to load ZMQ third party library"));
-		UE_LOG(LogInit, Log, TEXT("ZMQLibraryHandle is NOT valid"));
-	}
+//#if PLATFORM_WINDOWS
+//	LibraryPath = FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/UEZeroMQPluginLibrary/x64/Release/ZMQLibrary.dll"));
+//#elif PLATFORM_MAC
+//	LibraryPath = FPaths::Combine(*BaseDir, TEXT("Source/ThirdParty/UEZeroMQPluginLibrary/Mac/Release/libZMQLibrary.dylib"));
+//#endif // PLATFORM_WINDOWS
+//
+//	ZMQLibraryHandle = !LibraryPath.IsEmpty() ? FPlatformProcess::GetDllHandle(*LibraryPath) : nullptr;
+//
+//	if (ZMQLibraryHandle)
+//	{
+//		 Call the test function in the third party library that opens a message box
+//		ZMQLibraryFunction();
+//	}
+//	else
+//	{
+//		FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("ThirdPartyLibraryError", "Failed to load ZMQ third party library"));
+//		UE_LOG(LogInit, Log, TEXT("ZMQLibraryHandle is NOT valid"));
+//	}
 
 	FString dllName = "libzmq.dll";
 	if (SearchForDllPath(FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/libzmq/x64/Release/v140/dynamic/")), dllName))

@@ -9,8 +9,6 @@
 #include "oscpkt.hh"
 #include "zmq.h"
 #include "czmq.h"
-#include "zmq.hpp"
-#include "zmsg.hpp"
 #include "HideWindowsPlatformTypes.h"
 // @third party code - END
 

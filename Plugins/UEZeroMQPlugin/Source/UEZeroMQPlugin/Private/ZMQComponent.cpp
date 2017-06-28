@@ -196,47 +196,96 @@ int UZMQComponent::ReceiveZMQ()
 	int rc;
 
 	zmq_msg_t message;
-	rc = zmq_msg_init(&message);
-	assert(rc == 0);
 
 	if (m_IsInitialized) {
+		rc = zmq_msg_init(&message);
+		assert(rc == 0);
+		
+		int size = zmq_msg_recv(&message, m_ZMQSocket, ZMQ_NOBLOCK);
+		assert(size >= 0);
+		
+		char *data = (char *) zmq_msg_data(&message);
+		assert(data != 0);
 
-		//  Read envelope with address
-		char *address = s_recv(m_ZMQSocket, ZMQ_NOBLOCK);
-		//  Read message contents
+		zmq_msg_close(&message);
 
-		if (address != NULL && strcmp(address, "OSC") == 0) {
+		if ((size > 0) && (data != NULL) && (strcmp(data, "skeleton") == 0)) {
 
-			int size = zmq_msg_recv(&message, m_ZMQSocket, 0);
+			rc = zmq_msg_init(&message);
+			assert(rc == 0);
+
+			size = zmq_msg_recv(&message, m_ZMQSocket, ZMQ_NOBLOCK);
 			assert(size >= 0);
 			
-			char *data = (char*) zmq_msg_data(&message);
+			data = (char *) zmq_msg_data(&message);
 			assert(data != 0);			
 			if (size > 0) {
 				oscpkt::PacketReader pr(data, size);
 				oscpkt::Message *msg;
 
-				std::string tempStr;
-				float tempFloat;
-				bool tempBool;
+				std::string nameStr;
+				//bool tempBool;
+				int calibrated = 0;
+				float pos[3]; 
+				float rot[4];
+				float refv[3];
 				//int tempInt;
-
+				
+				//Frame 0 = /joint/Head i f f f f f f f f f f f f
+				//fscan(buf, "%s %i %f %f %f %f %f %f %f %f")
 				while ((pr.isOk()) && (msg = pr.popMessage()) != 0) {
-					if (msg->match("/A").popBool(tempBool).popStr(tempStr).popFloat(tempFloat).isOkNoMoreArgs()) {
-						UE_LOG(LogTemp, Warning, TEXT("search A found = %s"), UTF8_TO_TCHAR(tempStr.c_str()));
+					if (msg->match("/joint/Head").popStr(nameStr).popInt32(calibrated).
+							popFloat(pos[0]).popFloat(pos[1]).popFloat(pos[2]).
+							popFloat(rot[0]).popFloat(rot[1]).popFloat(rot[2]).popFloat(rot[3]).
+							popFloat(refv[0]).popFloat(refv[1]).popFloat(refv[2]).
+							isOkNoMoreArgs()) {
+						UE_LOG(LogTemp, Warning, TEXT("Head found"));
 					}
-					if (msg->match("/B").popStr(tempStr).popBool(tempBool).isOkNoMoreArgs()) {
-						UE_LOG(LogTemp, Warning, TEXT("search B found = %s"), UTF8_TO_TCHAR(tempStr.c_str()));
+					if (msg->match("/joint/Neck").popStr(nameStr).popInt32(calibrated).
+						popFloat(pos[0]).popFloat(pos[1]).popFloat(pos[2]).
+						popFloat(rot[0]).popFloat(rot[1]).popFloat(rot[2]).popFloat(rot[3]).
+						popFloat(refv[0]).popFloat(refv[1]).popFloat(refv[2]).
+						isOkNoMoreArgs()) {
+						UE_LOG(LogTemp, Warning, TEXT("Neck found"));
 					}
+					if (msg->match("/joint/SpineShoulder").popStr(nameStr).popInt32(calibrated).
+						popFloat(pos[0]).popFloat(pos[1]).popFloat(pos[2]).
+						popFloat(rot[0]).popFloat(rot[1]).popFloat(rot[2]).popFloat(rot[3]).
+						popFloat(refv[0]).popFloat(refv[1]).popFloat(refv[2]).
+						isOkNoMoreArgs()) {
+						UE_LOG(LogTemp, Warning, TEXT("SpineShoulder found"));
+					}
+					if (msg->match("/joint/SpineBase").popStr(nameStr).popInt32(calibrated).
+						popFloat(pos[0]).popFloat(pos[1]).popFloat(pos[2]).
+						popFloat(rot[0]).popFloat(rot[1]).popFloat(rot[2]).popFloat(rot[3]).
+						popFloat(refv[0]).popFloat(refv[1]).popFloat(refv[2]).
+						isOkNoMoreArgs()) {
+						UE_LOG(LogTemp, Warning, TEXT("SpineBase found"));
+					}
+					if (msg->match("/joint/ShoulderLeft").popStr(nameStr).popInt32(calibrated).
+						popFloat(pos[0]).popFloat(pos[1]).popFloat(pos[2]).
+						popFloat(rot[0]).popFloat(rot[1]).popFloat(rot[2]).popFloat(rot[3]).
+						popFloat(refv[0]).popFloat(refv[1]).popFloat(refv[2]).
+						isOkNoMoreArgs()) {
+						UE_LOG(LogTemp, Warning, TEXT("ShoulderLeft found"));
+					}
+					if (msg->match("/joint/ShoulderRight").popStr(nameStr).popInt32(calibrated).
+						popFloat(pos[0]).popFloat(pos[1]).popFloat(pos[2]).
+						popFloat(rot[0]).popFloat(rot[1]).popFloat(rot[2]).popFloat(rot[3]).
+						popFloat(refv[0]).popFloat(refv[1]).popFloat(refv[2]).
+						isOkNoMoreArgs()) {
+						UE_LOG(LogTemp, Warning, TEXT("ShoulderRight found"));
+					}
+
+					
 				}
 
 				UE_LOG(LogTemp, Warning, TEXT("[%s]"), ANSI_TO_TCHAR(data));
 				//UE_LOG(LogTemp, Warning, TEXT("[%s] %s"), ANSI_TO_TCHAR(address), ANSI_TO_TCHAR(contents));
-				
+
 			}
 			rc = zmq_msg_close(&message);
 		}
-		free(address);
 			
 	}
 

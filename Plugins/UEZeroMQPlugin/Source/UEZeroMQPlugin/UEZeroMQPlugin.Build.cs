@@ -43,7 +43,7 @@ public class UEZeroMQPlugin : ModuleRules
                 "HeadMountedDisplay",
                 "Slate",
                 "SlateCore",
-                "UEZeroMQPluginLibrary",
+                //"UEZeroMQPluginLibrary",
                 "libsodium",
                 "libzmq",
                 "czmq",
