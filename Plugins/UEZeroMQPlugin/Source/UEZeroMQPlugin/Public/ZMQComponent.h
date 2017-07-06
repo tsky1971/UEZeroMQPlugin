@@ -29,48 +29,14 @@ enum class EZMQPatternEnum : uint8
 	UE_ZMQ_SERVER	UMETA(DisplayName = "SERVER")
 };
 
+
 USTRUCT(BlueprintType, Blueprintable)
-struct FZMQBone
+struct FZSocket
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ZMQSkeleton)
-	bool JointTracked;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ZMQSkeleton)
-	int32 JointState;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ZMQSkeleton)
-	int32 BoneIndex;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ZMQSkeleton)
-	int32 Joint0Index;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ZMQSkeleton)
-	FVector Joint0;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ZMQSkeleton)
-	int32 Joint1Index;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ZMQSkeleton)
-	FVector Joint1;
+	zsock_t *ZSocket;
 };
-
-USTRUCT(BlueprintType, Blueprintable)
-struct FZMQSkeleton
-{
-	GENERATED_USTRUCT_BODY()
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = ZMQSkeleton)
-	int32 SkeletonId;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = ZMQSkeleton)
-	FVector Position;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = ZMQSkeleton)
-	TArray<FZMQBone> Bones;
-};
-
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class UEZEROMQPLUGIN_API UZMQComponent : public UActorComponent
@@ -80,6 +46,17 @@ class UEZEROMQPLUGIN_API UZMQComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UZMQComponent();
+	virtual ~UZMQComponent();
+
+	void _ShutdownZSockets()
+	{
+		if (m_ZSockets.size() > 0) {
+			for (auto iter = m_ZSockets.begin(); iter != m_ZSockets.end(); ++iter) {
+				zsock_destroy(&(*iter).ZSocket);
+			}
+			m_ZSockets.clear();
+		}
+	}
 
 protected:
 	// Called when the game starts
@@ -93,38 +70,41 @@ public:
 	UFUNCTION(BluePrintCallable, Category = ZMQ)
 	bool IsZMQIinitialized();
 
-	UFUNCTION(BluePrintCallable, Category = ZMQ)
-		bool CreateContextZMQ();
-	UFUNCTION(BluePrintCallable, Category = ZMQ)
-		int DestroyContextZMQ();
-	UFUNCTION(BluePrintCallable, Category = ZMQ)
-		int SetContextZMQ();
-	UFUNCTION(BluePrintCallable, Category = ZMQ)
-		int TermContextZMQ();
-	UFUNCTION(BluePrintCallable, Category = ZMQ)
-		bool ShutDownContextZMQ();
+	//UFUNCTION(BluePrintCallable, Category = ZMQ)
+	//	bool CreateContextZMQ();
+	//UFUNCTION(BluePrintCallable, Category = ZMQ)
+	//	int DestroyContextZMQ();
+	//UFUNCTION(BluePrintCallable, Category = ZMQ)
+	//	int SetContextZMQ();
+	//UFUNCTION(BluePrintCallable, Category = ZMQ)
+	//	int TermContextZMQ();
+	//UFUNCTION(BluePrintCallable, Category = ZMQ)
+	//	bool ShutDownContextZMQ();
 
 
 	UFUNCTION(BluePrintCallable, Category = ZMQ)
-		bool GetSockOpt_IMMEDIATE_ZMQ();
+		bool GetSockOpt_IMMEDIATE_ZMQ(const FZSocket _target);
 	UFUNCTION(BluePrintCallable, Category = ZMQ)
-		bool SetSockOpt_IMMEDIATE_ZMQ(const bool value);
+		bool SetSockOpt_IMMEDIATE_ZMQ(const FZSocket _target, const bool _immediate);
 
 	//UFUNCTION(BluePrintCallable, Category = ZMQ)
 	//	bool CreateSocketZMQ(const FString ip, EZMQPatternEnum pattern);
 
 	UFUNCTION(BluePrintCallable, Category = ZMQ)
-		bool CreateSUBSocketZMQ(const FString ip, const int port, FString filter);
+		FZSocket CreateZSocketSubscribe(const FString ip, const int port, FString filter);
 	
 	UFUNCTION(BluePrintCallable, Category = ZMQ)
-		int ReceiveZMQ();
+		virtual int ReceiveZMQ(const FZSocket _target);
 
-private:
+protected:
 
-	EZMQPatternEnum m_SocketPattern;
-
-	void *m_ZMQContext;
-	void *m_ZMQSocket;
 	bool m_IsInitialized;
 
+	std::vector<FZSocket> m_ZSockets;
+
+	/*zsock_t *m_ZMQSubscriber;
+	zsock_t *m_ZMQPublisher;
+
+	zsock_t *m_ZMQPush;
+	zsock_t *m_ZMQPull;*/
 };

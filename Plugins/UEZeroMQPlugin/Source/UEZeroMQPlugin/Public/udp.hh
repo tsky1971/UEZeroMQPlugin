@@ -38,6 +38,7 @@
 # include <windows.h>
 # include <ws2tcpip.h>
 # if defined(_MSC_VER)
+#pragma warning( disable : 4996)
 #  pragma comment(lib, "ws2_32.lib")
 # endif
 #else
